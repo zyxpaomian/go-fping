@@ -11,6 +11,7 @@ import (
 	"io"
 	"os"
 	"math/rand"
+	"runtime"
 )
 
 var count int
@@ -22,6 +23,9 @@ var icmpCmd = &cobra.Command{
 	Short: "icmp fping network",
 	Long: `icmp fping network`,
 	Run: func(cmd *cobra.Command, args []string) {
+		runtime.GOMAXPROCS(runtime.NumCPU())
+		rand.Seed(time.Now().UTC().UnixNano())
+
 		var ipList []string
 
 		// 探测源，只能选1

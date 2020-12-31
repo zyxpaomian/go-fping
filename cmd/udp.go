@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/cobra"
 	"sync"
 	"time"
+	"runtime"
 )
 
 // udpCmd represents the udp command
@@ -17,6 +18,8 @@ var udpCmd = &cobra.Command{
 	Short: "udp fping network",
 	Long: `udp fping network`,
 	Run: func(cmd *cobra.Command, args []string) {
+		runtime.GOMAXPROCS(runtime.NumCPU())
+		rand.Seed(time.Now().UTC().UnixNano())
 		var ipList []string
 
 		// 探测源，只能选1

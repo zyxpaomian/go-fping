@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/cobra"
 	"sync"
 	"time"
+	"math/rand"
+	"runtime"	
 )
 
 // tcpCmd represents the tcp command
@@ -17,6 +19,9 @@ var tcpCmd = &cobra.Command{
 	Short: "tcp fping network",
 	Long: `tcp fping network`,
 	Run: func(cmd *cobra.Command, args []string) {
+		runtime.GOMAXPROCS(runtime.NumCPU())
+		rand.Seed(time.Now().UTC().UnixNano())
+				
 		var ipList []string
 
 		// 探测源，只能选1
